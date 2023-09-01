@@ -1,0 +1,21 @@
+<h1>Angular Template-Driven Form</h1>
+<form #myForm="ngForm" (ngSubmit)="onSubmit()">
+  <div class="form-group">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" [(ngModel)]="formData.name" required minlength="2" maxlength="50">
+    <div *ngIf="myForm.form.controls['name'].invalid && (myForm.form.controls['name'].dirty || myForm.form.controls['name'].touched)" class="alert alert-danger">
+      <div *ngIf="myForm.form.controls['name'].hasError('required')">Name is required.</div>
+      <div *ngIf="myForm.form.controls['name'].hasError('minlength')">Name must be at least 2 characters.</div>
+      <div *ngIf="myForm.form.controls['name'].hasError('maxlength')">Name cannot exceed 50 characters.</div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" [(ngModel)]="formData.email" required email>
+    <div *ngIf="myForm.form.controls['email'].invalid && (myForm.form.controls['email'].dirty || myForm.form.controls['email'].touched)" class="alert alert-danger">
+      <div *ngIf="myForm.form.controls['email'].hasError('required')">Email is required.</div>
+      <div *ngIf="myForm.form.controls['email'].hasError('email')">Invalid email format.</div>
+    </div>
+  </div>
+  <button type="submit" class="btn btn-primary" [disabled]="myForm.form.invalid">Submit</button>
+</form>
